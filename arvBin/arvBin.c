@@ -68,3 +68,18 @@ nodo *destroi_arvore (nodo *raiz) {
 	return raiz;
 }
 
+nodo* minimo (nodo *raiz) {
+	if (!raiz)	return NULL;
+	
+	nodo* atual = raiz;
+	while (atual->fe)	atual = atual->fe;
+	return atual;
+}
+
+nodo* maximo (nodo *raiz) {
+	if (!raiz)	return NULL;
+	
+	nodo* atual = raiz;
+	while (atual->fd)	atual = atual->fd;
+	return atual;
+}
