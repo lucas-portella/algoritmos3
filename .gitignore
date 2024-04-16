@@ -1,6 +1,8 @@
 # arquivos objeto
-*.o
+#*.o
 # arquivos temporarios devem utilizar extensao .tmp
 *.tmp
+#arquivos temporarios vim
+*.swp
 #arquivos temporarios macOs
 
