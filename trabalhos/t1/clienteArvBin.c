@@ -16,9 +16,11 @@ int somaChave (ArvBin arv);
 int valorMinimo (ArvBin arv);
 int valorMaximo (ArvBin arv);
 void paiMaior (ArvBin arv);
-void troca (ArvBin, ArvBin);
-void maiorNaRaiz (ArvBin);
-void ordenaPeloMaior (ArvBin);
+void troca (ArvBin a1, ArvBin a2);
+void maiorNaRaiz (ArvBin arv);
+void ordenaPeloMaior (ArvBin arv);
+ArvBin novoNodo (ItemArv i, ArvBin esq, ArvBin dir);
+ArvBin dobraArvore (ArvBin arv);
 
 /* ----------------------------------------------------- */
 /* Programa: cria uma árvore binária e imprime a árvore
@@ -49,17 +51,13 @@ int main () {
   maiorNaRaiz(arv);
   escreveArv(arv);
 	
-
-	
   ordenaPeloMaior(arv);
   escreveArv(arv);
 
-	/*
-  ... dobraArvore(...)
-  escreveArv( raiz );
-	*/
+  arv = dobraArvore(arv);
+  escreveArv(arv);
 
-  free( arv );
+	freeArv(arv);
   return 0;
 }
 
@@ -147,4 +145,27 @@ void ordenaPeloMaior (ArvBin arv) {
 	if (arv->esq)	ordenaPeloMaior (arv->esq);
 	if (arv->dir)	ordenaPeloMaior (arv->dir);
 	maiorNaRaiz(arv);
+}
+
+ArvBin novoNodo (ItemArv i, ArvBin esq, ArvBin dir) {
+	ArvBin novo;
+
+	novo = (ArvBin) malloc (sizeof (Nodo));
+	if (novo)  {
+		novo->item = i;
+		novo->esq = esq;
+		novo->dir = dir;
+	}
+	return novo;
+}
+
+ArvBin dobraArvore (ArvBin arv) {
+	if (arvVazia (arv))	return arv;
+
+	if (arv->esq)	arv->esq = dobraArvore (arv->esq);
+	if (arv->dir)	arv->dir = dobraArvore (arv->dir);
+
+	if ((arv->item % 2) == 0) 
+		return novoNodo (arv->item+1, arv, NULL);
+	else	return novoNodo (arv->item-1, arv, NULL);
 }
